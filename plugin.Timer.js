@@ -1,26 +1,26 @@
 /**
  * @fileOverview
- * Timing plugin for shower.
+ * Timer plugin for Shower.
  *
  * @example
- * modules.require(['shower', 'plugin.Timing'], function (shower, Timing) {
+ * modules.require(['shower', 'plugin.Timer'], function (shower, Timer) {
  *     shower.ready(function () {
- *          var timingPlugin = new Timing(shower);
+ *          var timerPlugin = new Timer(shower);
  *     });
  * });
  */
-modules.define('plugin.Timing', [
+modules.define('plugin.Timer', [
     'util.extend'
 ], function (provide, extend) {
 
     /**
      * @class
-     * Timing plugin for shower.
-     * @name plugin.Timing
+     * Timer plugin for shower.
+     * @name plugin.Timer
      * @param {Shower} shower
      * @constructor
      */
-    function Timing (shower) {
+    function Timer (shower) {
         this._shower = shower;
         this._timer = null;
 
@@ -30,7 +30,7 @@ modules.define('plugin.Timing', [
         this.init();
     }
 
-    extend(Timing.prototype, /** @lends plugin.Timing.prototype */{
+    extend(Timer.prototype, /** @lends plugin.Timer.prototype */{
 
         init: function () {
             this._setupListeners();
@@ -53,7 +53,7 @@ modules.define('plugin.Timing', [
 
             this._playerListeners = this._shower.player.events.group()
                 .on('activate', this._onSlideActivate, this)
-                .on('plugintimingnext', this._onTimingNext, this);
+                .on('plugintimernext', this._onTimerNext, this);
         },
 
         _clearListeners: function () {
@@ -83,14 +83,14 @@ modules.define('plugin.Timing', [
             }
         },
 
-        _onTimingNext: function () {
+        _onTimerNext: function () {
             this._shower.next();
             this._clearTimer();
         },
 
         _initTimer: function (timing) {
             this._timer = setInterval(function () {
-                this._shower.player.events.emit('plugintimingnext');
+                this._shower.player.events.emit('plugintimernext');
             }.bind(this), timing);
         },
 
@@ -102,5 +102,5 @@ modules.define('plugin.Timing', [
         }
     });
 
-    provide(Timing);
+    provide(Timer);
 });
