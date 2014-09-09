@@ -2,12 +2,12 @@
   "name": "shower-timer",
   "version": "0.0.1",
   "license": "MIT",
-  "main": "plugin.Timer.js",
+  "main": "shower-timer.js",
   "ignore": [
     "*",
     "!License.md",
     "!Readme.md",
-    "!plugin.Timer.js",
+    "!shower-timer.js",
     "!bower.json"
   ],
   "keywords": [

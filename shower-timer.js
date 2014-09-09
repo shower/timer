@@ -1,15 +1,8 @@
 /**
  * @fileOverview
  * Timer plugin for Shower.
- *
- * @example
- * modules.require(['shower', 'plugin.Timer'], function (shower, Timer) {
- *     shower.ready(function () {
- *          var timerPlugin = new Timer(shower);
- *     });
- * });
  */
-modules.define('plugin.Timer', [
+modules.define('shower-timer', [
     'util.extend'
 ], function (provide, extend) {
 
@@ -103,4 +96,8 @@ modules.define('plugin.Timer', [
     });
 
     provide(Timer);
+});
+
+modules.require(['shower'], function (shower) {
+    shower.plugins.add('shower-timer');
 });
