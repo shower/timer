@@ -3,7 +3,7 @@
  * Timer plugin for Shower.
  */
 modules.define('shower-timer', [
-    'event.Emitter',
+    'Emitter',
     'util.extend',
     'util.bind'
 ], function (provide, EventEmitter, extend, bind) {
@@ -100,7 +100,7 @@ modules.define('shower-timer', [
                     } else {
                         timing = parseInt(timing, 10) * 1000;
                     }
-                    
+
                     if (timing !== 0) {
                         this._initTimer(timing);
                     }
@@ -113,16 +113,16 @@ modules.define('shower-timer', [
                 navigationPlugin = this._navigationPlugin;
 
             // Support inner navigation plugin.
-            if (navigationPlugin && 
-                navigationPlugin.getLength() && 
+            if (navigationPlugin &&
+                navigationPlugin.getLength() &&
                 navigationPlugin.getLength() != navigationPlugin.getComplete()) {
 
                 timing = timing / (navigationPlugin.getLength() + 1);
-            } 
+            }
 
             this._timer = setInterval(bind(function () {
                 this.events.emit('next');
-            }, this), timing);         
+            }, this), timing);
         },
 
         _clearTimer: function () {
@@ -134,7 +134,7 @@ modules.define('shower-timer', [
 
         _onNext: function () {
             this._clearTimer();
-            this._shower.next();         
+            this._shower.next();
         }
     });
 
