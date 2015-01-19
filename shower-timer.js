@@ -67,7 +67,7 @@ modules.define('shower-timer', [
 
             this._navigationPlugin = shower.plugins.get(navigationPluginName);
             if (!this._navigationPlugin) {
-                this._pluginsListeners = this.shower.plugins.events.group()
+                this._pluginsListeners = shower.plugins.events.group()
                     .on('pluginadd', function (e) {
                         if (e.get('name') == navigationPluginName) {
                             this._navigationPlugin = shower.plugins.get(navigationPluginName);
