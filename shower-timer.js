@@ -8,7 +8,7 @@ modules.define('shower-timer', [
     'util.bind'
 ], function (provide, EventEmitter, extend, bind) {
 
-    var navigationPluginName = 'shower-navigation';
+    var nextPluginName = 'shower-next';
 
     /**
      * @class
@@ -65,12 +65,12 @@ modules.define('shower-timer', [
                 .on('keydown', this._clearTimer, this)
                 .on('activate', this._onSlideActivate, this);
 
-            this._navigationPlugin = shower.plugins.get(navigationPluginName);
-            if (!this._navigationPlugin) {
+            this._nextPlugin = shower.plugins.get(nextPluginName);
+            if (!this._nextPlugin) {
                 this._pluginsListeners = shower.plugins.events.group()
                     .on('pluginadd', function (e) {
-                        if (e.get('name') == navigationPluginName) {
-                            this._navigationPlugin = shower.plugins.get(navigationPluginName);
+                        if (e.get('name') == nextPluginName) {
+                            this._nextPlugin = shower.plugins.get(nextPluginName);
                             this._pluginsListeners.offAll();
                         }
                     }, this);
@@ -110,14 +110,14 @@ modules.define('shower-timer', [
 
         _initTimer: function (timing) {
             var shower = this._shower,
-                navigationPlugin = this._navigationPlugin;
+                nextPlugin = this._nextPlugin;
 
-            // Support inner navigation plugin.
-            if (navigationPlugin &&
-                navigationPlugin.getLength() &&
-                navigationPlugin.getLength() != navigationPlugin.getComplete()) {
+            // Support Next plugin.
+            if (nextPlugin &&
+                nextPlugin.getLength() &&
+                nextPlugin.getLength() != nextPlugin.getComplete()) {
 
-                timing = timing / (navigationPlugin.getLength() + 1);
+                timing = timing / (nextPlugin.getLength() + 1);
             }
 
             this._timer = setInterval(bind(function () {
