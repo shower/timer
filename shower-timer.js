@@ -133,7 +133,7 @@ modules.define('shower-timer', [
 
         _onNext: function () {
             this._clearTimer();
-            this._shower.next();
+            this._shower.player.next();
         }
     });
 
