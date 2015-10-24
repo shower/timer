@@ -3,10 +3,11 @@
  * Timer plugin for Shower.
  */
 modules.define('shower-timer', [
+    'shower',
     'Emitter',
     'util.extend',
     'util.bind'
-], function (provide, EventEmitter, extend, bind) {
+], function (provide, showerGlobal, EventEmitter, extend, bind) {
 
     var PLUGIN_NAME_NEXT = 'shower-next';
 
@@ -26,13 +27,11 @@ modules.define('shower-timer', [
         this._showerListeners = null;
         this._playerListeners = null;
         this._pluginsListeners = null;
+
+        this._setupListeners();
     }
 
     extend(Timer.prototype, /** @lends plugin.Timer.prototype */{
-
-        init: function () {
-            this._setupListeners();
-        },
 
         destroy: function () {
             this._clearTimer();
@@ -65,7 +64,7 @@ modules.define('shower-timer', [
                 .on('keydown', this._clearTimer, this)
                 .on('activate', this._onSlideActivate, this);
 
-            this._nextPlugin = shower.plugins.get(PLUGIN_NAME_NEXT);
+            this._nextPlugin = showerGlobal.plugins.get(PLUGIN_NAME_NEXT, shower);
             if (!this._nextPlugin) {
                 this._pluginsListeners = shower.plugins.events.group()
                     .on('pluginadd', function (e) {
