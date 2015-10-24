@@ -8,7 +8,7 @@ modules.define('shower-timer', [
     'util.bind'
 ], function (provide, EventEmitter, extend, bind) {
 
-    var nextPluginName = 'shower-next';
+    var PLUGIN_NAME_NEXT = 'shower-next';
 
     /**
      * @class
@@ -65,12 +65,12 @@ modules.define('shower-timer', [
                 .on('keydown', this._clearTimer, this)
                 .on('activate', this._onSlideActivate, this);
 
-            this._nextPlugin = shower.plugins.get(nextPluginName);
+            this._nextPlugin = shower.plugins.get(PLUGIN_NAME_NEXT);
             if (!this._nextPlugin) {
                 this._pluginsListeners = shower.plugins.events.group()
                     .on('pluginadd', function (e) {
-                        if (e.get('name') == nextPluginName) {
-                            this._nextPlugin = shower.plugins.get(nextPluginName);
+                        if (e.get('name') === PLUGIN_NAME_NEXT) {
+                            this._nextPlugin = shower.plugins.get(PLUGIN_NAME_NEXT);
                             this._pluginsListeners.offAll();
                         }
                     }, this);
