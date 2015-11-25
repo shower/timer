@@ -90,7 +90,7 @@ shower.modules.define('shower-timer', [
             var currentSlide = this._shower.player.getCurrentSlide();
 
             if (this._shower.container.isSlideMode() && currentSlide.state.visited < 2) {
-                var timing = currentSlide.getLayout().getData('timing');
+                var timing = currentSlide.layout.getData('timing');
 
                 if (timing && /^(\d{1,2}:)?\d{1,3}$/.test(timing)) {
                     if (timing.indexOf(':') !== -1) {
