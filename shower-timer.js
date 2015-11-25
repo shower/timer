@@ -2,7 +2,7 @@
  * @fileOverview
  * Timer plugin for Shower.
  */
-modules.define('shower-timer', [
+shower.modules.define('shower-timer', [
     'shower',
     'Emitter',
     'util.extend',
@@ -140,6 +140,6 @@ modules.define('shower-timer', [
     provide(Timer);
 });
 
-modules.require(['shower'], function (shower) {
-    shower.plugins.add('shower-timer');
+shower.modules.require(['shower'], function (sh) {
+    sh.plugins.add('shower-timer');
 });
