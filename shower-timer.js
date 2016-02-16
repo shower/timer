@@ -88,7 +88,7 @@ shower.modules.define('shower-timer', [
             this._clearTimer();
             var currentSlide = this._shower.player.getCurrentSlide();
 
-            if (this._shower.container.isSlideMode() && currentSlide.state.visited < 2) {
+            if (this._shower.container.isSlideMode() && currentSlide.state.get('visited') < 2) {
                 var timing = currentSlide.layout.getData('timing');
 
                 if (timing && /^(\d{1,2}:)?\d{1,3}$/.test(timing)) {
