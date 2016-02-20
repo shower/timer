@@ -5,9 +5,8 @@
 shower.modules.define('shower-timer', [
     'shower',
     'Emitter',
-    'util.extend',
-    'util.bind'
-], function (provide, showerGlobal, EventEmitter, extend, bind) {
+    'util.extend'
+], function (provide, showerGlobal, EventEmitter, extend) {
 
     var PLUGIN_NAME_NEXT = 'shower-next';
 
@@ -89,7 +88,7 @@ shower.modules.define('shower-timer', [
             this._clearTimer();
             var currentSlide = this._shower.player.getCurrentSlide();
 
-            if (this._shower.container.isSlideMode() && currentSlide.state.visited < 2) {
+            if (this._shower.container.isSlideMode() && currentSlide.state.get('visited') < 2) {
                 var timing = currentSlide.layout.getData('timing');
 
                 if (timing && /^(\d{1,2}:)?\d{1,3}$/.test(timing)) {
@@ -108,7 +107,8 @@ shower.modules.define('shower-timer', [
         },
 
         _initTimer: function (timing) {
-            var shower = this._shower,
+            var events = this.events,
+                shower = this._shower,
                 nextPlugin = this._nextPlugin;
 
             // Support Next plugin.
@@ -119,9 +119,9 @@ shower.modules.define('shower-timer', [
                 timing = timing / (nextPlugin.getLength() + 1);
             }
 
-            this._timer = setInterval(bind(function () {
-                this.events.emit('next');
-            }, this), timing);
+            this._timer = setInterval(function () {
+                events.emit('next');
+            }, timing);
         },
 
         _clearTimer: function () {
